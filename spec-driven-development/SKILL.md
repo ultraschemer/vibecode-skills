@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Use before writing, refactoring, or deleting any production code. Enforces Spec-Driven Development (SDD) by requiring a spec.md and plan.md to be written and saved under <project-root>/specs/[feature-id]-[kebab-case-name]/ in the Git repository that owns the changed files, before any code is touched, and requires plan.md checkboxes to be updated as tasks complete. Trigger on "new feature", "implement", "add endpoint", "refactor", "plan this", or any request that changes application logic.
+description: Use before writing, refactoring, or deleting any production code. Enforces Spec-Driven Development (SDD) by requiring a spec.md and plan.md to be written and saved under <project-root>/specs/[NNNNNN]-[kebab-case-name]/ in the Git repository that owns the changed files, before any code is touched, and requires plan.md checkboxes to be updated as tasks complete. Trigger on "new feature", "implement", "add endpoint", "refactor", "plan this", or any request that changes application logic.
 license: MIT
 metadata:
   audience: maintainers
@@ -45,16 +45,18 @@ Before creating any artifact, resolve the owning project root from the first fil
 ```text
 <project-root>/
 `-- specs/
-    `-- [feature-id]-[kebab-case-name]/
+    `-- [NNNNNN]-[kebab-case-name]/
         |-- spec.md   # Functional requirements, edge cases, and success criteria.
         `-- plan.md   # Step-by-step technical implementation path and checkboxes.
 ```
 
 Never create `specs/` at the root of a directory that is not itself a Git repository. Such a directory cannot capture the artifacts in version control, and a single folder shared by unrelated projects mixes their plans together.
 
+In this layout, `NNNNNN` is the six-digit zero-padded index defined in section 2.3, and the kebab-case-name describes the feature.
+
 ### 2.3 Cross-Repository Changes
 
-When one change touches more than one repository, write a complete `spec.md` and `plan.md` set in the root of every affected repository, all sharing the same `[feature-id]-[kebab-case-name]`.
+When one change touches more than one repository, write a complete `spec.md` and `plan.md` set in the root of every affected repository, all sharing the same `[NNNNNN]-[kebab-case-name]`.
 
 The dependency is mandatory in both directions and must be verified before the change is considered planned:
 
@@ -62,7 +64,7 @@ The dependency is mandatory in both directions and must be verified before the c
 - Every `plan.md` lists the sibling `plan.md` paths under Affected Files.
 - If any one of them is missing a cross-reference, the plan is incomplete and no code may be written.
 
-Create the feature IDs numerically per project, counting only the existing `specs/` folders in that project root, so IDs stay unique and ordered within each repository. When a change spans repositories, reuse one ID across all of them. Infer the kebab-case-name from the current context and the features asked to be developed, to avoid the necessity to edit such names to make them meaningful.
+Create the feature IDs numerically per project, counting only the existing `specs/` folders in that project root, so IDs stay unique and ordered within each repository. The index is always exactly six digits, left-padded with zeroes: `000001`, `000002`, and so on, never `1` or `2`. Zero-padding is mandatory because a bare integer sorts as text, which scrambles the order under `ls` and `ls -l` (`1`, `10`, `2`); the padded form makes alphabetical listing equal chronological listing. Once a folder exists, its number is never reused or renumbered. When a change spans repositories, reuse one ID across all of them. Infer the kebab-case-name from the current context and the features asked to be developed, to avoid the necessity to edit such names to make them meaningful.
 
 ## 3. Document Templates
 
@@ -74,12 +76,12 @@ Both documents are mandatory and their contents must not be duplicated across th
 
 ### 3.1 Specification Template (spec.md)
 
-Save this as `<project-root>/specs/[feature-id]-[kebab-case-name]/spec.md`.
+Save this as `<project-root>/specs/[NNNNNN]-[kebab-case-name]/spec.md`.
 
 ```markdown
 # Specification: [Feature Name]
 
-Feature ID: [feature-id]-[kebab-case-name]
+Feature ID: [NNNNNN]-[kebab-case-name]
 Project: [project-root repository name]
 Date: [YYYY-MM-DD]
 
@@ -119,7 +121,7 @@ Out of scope:
 
 ## 4. Execution Plan Template (plan.md)
 
-When creating or updating an execution plan, you **must** use the following exact Markdown template. Save this as `<project-root>/specs/[feature-id]-[kebab-case-name]/plan.md`:
+When creating or updating an execution plan, you **must** use the following exact Markdown template. Save this as `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`:
 
 ```markdown
 # Execution Plan: [Feature Name]
@@ -152,6 +154,6 @@ Each step must name the spec.md identifiers it delivers (R#, EC#, AC#).
 
 ## 5. Interactive State Tracking Workflow
 
-1. **Drafting:** Write the `spec.md` and `plan.md` to `<project-root>/specs/[feature-id]-[kebab-case-name]/`.
-2. **Approval Request:** Present the path of the saved local file to the user: *"I have saved the execution plan to `<project-root>/specs/[feature-id]-[kebab-case-name]/plan.md`. Please review and approve."*
+1. **Drafting:** Write the `spec.md` and `plan.md` to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/`.
+2. **Approval Request:** Present the path of the saved local file to the user: *"I have saved the execution plan to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`. Please review and approve."*
 3. **Execution Verification:** As you make progress through your tasks, you **must** update the checkboxes (`[ ]` to `[x]`) in the local `plan.md` file after completing each milestone. Do not keep the state solely in your context window. When the session cannot write to disk, track progress in the response instead and reconcile the checkboxes in one pass as soon as editing is permitted.
