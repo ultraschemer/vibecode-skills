@@ -15,6 +15,12 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 **Precedence:** This skill sets the floor for how a change is planned, not the whole of it. Where a project ships its own agent instructions (`AGENTS.md`, `CLAUDE.md`, or equivalent), those orders govern, and this skill is applied inside them rather than in place of them.
 
+## 0.1 Size Constraints
+
+**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **128 KB**. Both documents must focus strictly on what their templates define. Additional sections, if necessary, must be as concise as possible to remain within this limit.
+
+**Summarization and Reorganization:** When the limit would be exceeded, the agent must summarize and reorganize the specification and plan content—**only for specifications whose implementation is not yet finished**. Specifications with completed implementations are historical references only and must never be modified again.
+
 ## 1. Mandatory Pre-Flight Phase (No-Code Gate)
 
 Before writing, refactoring, or deleting any production code, you **must** pause and execute the following ritual:
