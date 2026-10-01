@@ -127,7 +127,7 @@ Out of scope:
 
 ## 4. Execution Plan Template (plan.md)
 
-When creating or updating an execution plan, you **must** use the following exact Markdown template. Save this as `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`:
+When creating or updating an execution plan, you **should** use the following Markdown template. Save this as `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`:
 
 ```markdown
 # Execution Plan: [Feature Name]
