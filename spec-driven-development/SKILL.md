@@ -17,7 +17,7 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 ## 0.1 Size Constraints
 
-**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **128 KB**. Both documents must focus strictly on what their templates define. Additional sections, if necessary, must be as concise as possible to remain within this limit.
+**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **96 KB**. Both documents must focus strictly on what their templates define. Additional sections, if necessary, must be as concise as possible to remain within this limit.
 
 **Summarization and Reorganization:** When the limit would be exceeded, the agent must summarize and reorganize the specification and plan content—**only for specifications whose implementation is not yet finished**. Specifications with completed implementations are historical references only and must never be modified again.
 

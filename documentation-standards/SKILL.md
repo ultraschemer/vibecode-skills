@@ -39,14 +39,14 @@ Every public class, method, function, and module must include a structured docst
 
 Formats that are not functions, such as YAML, CMake, INI or Nginx configuration, cannot express parameters, returns or exceptions. Their required elements are declared in their own section of section 2, and this four-part contract does not apply to them.
 
-**Length Limits for Entity Descriptions:** The descriptive prose for any entity (type definitions, structs, classes, function definitions, global variables, and similar) must not exceed **120 words**. This limit applies to the main description only and **excludes** individual parameter descriptions, return value descriptions, member variable descriptions, and subdivision explanations (e.g., `@param`, `@return`, `@throws` blocks), each of which carries its own limit of **20 words**.
+**Length Limits for Entity Descriptions:** The descriptive prose for any entity (type definitions, structs, classes, function definitions, global variables, and similar) must not exceed **80 words**. This limit applies to the main description only and **excludes** individual parameter descriptions, return value descriptions, member variable descriptions, and subdivision explanations (e.g., `@param`, `@return`, `@throws` blocks), each of which carries its own limit of **16 words**.
 
 ### Inline Comments
 
 - **Explain the "Why":** Focus on the rationale behind a design choice, performance trade-off, or workaround.
 - **Do Not State the Obvious:** Avoid comments like `x = x + 1; // increments x`.
 - **Placement:** Place inline comments directly above the code line they reference, aligned to the same indentation level.
-- **Length Limit:** Inline comments must not exceed **30 words**.
+- **Length Limit:** Inline comments must not exceed **20 words**.
 
 ## 2. Language-Specific Guidelines
 
