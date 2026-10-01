@@ -17,7 +17,7 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 ## 0.1 Size Constraints
 
-**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **64 KB**, measured as the sum of the two files' byte counts (`wc -c`), never as disk usage (`du`, which rounds up to blocks and includes directory entries).
+**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **48 KB**, measured as the sum of the two files' byte counts (`wc -c`), never as disk usage (`du`, which rounds up to blocks and includes directory entries).
 
 **Compulsory vs non-compulsory content.** The sections the templates define are compulsory: every one must be present, and every identifier and every description in them must be kept. **Open Questions, Edge Cases, Success Criteria, and Requisites carry their descriptions in the document itself, never by reference to something outside it, so that internal consistency survives summarization** — a reader must be able to resolve each entry without leaving the file. Everything else is non-compulsory — extra sections, worked rationale, revision history, measurement logs, coverage matrices, cross-references between entries — and must be **as concise as possible**: only what is necessary to complement the implementation, written to introduce the least possible internal conflict or inconsistency.
 
