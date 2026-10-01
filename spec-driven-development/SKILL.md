@@ -17,9 +17,21 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 ## 0.1 Size Constraints
 
-**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **96 KB**. Both documents should focus strictly on what their templates define. Additional sections can be appended, or added in any place of the specification files, if necessary, and they must be as concise as possible to remain within this limit. Open Questions, Edge Cases, Success Criteria, and Requisites, when referenced, should have their descriptions in the document, to maintain internal consistency.
+**File Size Limit:** The combined size of `spec.md` and `plan.md` for any feature must not exceed **64 KB**, measured as the sum of the two files' byte counts (`wc -c`), never as disk usage (`du`, which rounds up to blocks and includes directory entries).
+
+**Compulsory vs non-compulsory content.** The sections the templates define are compulsory: every one must be present, and every identifier and every description in them must be kept. **Open Questions, Edge Cases, Success Criteria, and Requisites carry their descriptions in the document itself, never by reference to something outside it, so that internal consistency survives summarization** — a reader must be able to resolve each entry without leaving the file. Everything else is non-compulsory — extra sections, worked rationale, revision history, measurement logs, coverage matrices, cross-references between entries — and must be **as concise as possible**: only what is necessary to complement the implementation, written to introduce the least possible internal conflict or inconsistency.
+
+**When over the limit, cut in this order:** non-compulsory prose and worked rationale first, then revision history, then anything duplicated between the two documents. Never cut a requirement, edge case, success criterion, identifier or its description, and never delete a compulsory section. **Reaching the cap by deleting a description is a defect, not a saving.**
 
 **Summarization and Reorganization:** When the limit would be exceeded, the agent must summarize and reorganize the specification and plan content—**only for specifications whose implementation is not yet finished**. Specifications with completed implementations are historical references only and must never be modified again.
+
+### 0.2 Agent Instruction File Cap
+
+**Agent instruction files** — `AGENTS.md`, `CLAUDE.md` or equivalent — must not exceed **12 KB** each, measured with `wc -c`.
+
+**They are a decision and action register, not an archive.** Record the minimum strictly necessary to act: which decisions are already made, which actions must be performed, and the mechanical commands that enforce them. **Lead with the imperative** — what to do, what not to do, what to re-derive — rather than the reasoning behind it. Detail, measurements and rationale belong in the specification that earned them and must not be duplicated here; a fact recorded in both will go stale in one of them. Prefer one-line rules over paragraphs, and a pointer over a restatement.
+
+**When over the cap**, move the content into the owning specification (or the one being written) and leave a pointer, then cut in this order: worked rationale, history, restated specification content, and any background a reader can obtain by running a command.
 
 ## 1. Mandatory Pre-Flight Phase (No-Code Gate)
 
