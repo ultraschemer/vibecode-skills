@@ -27,7 +27,7 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 ### 0.2 Agent Instruction File Cap
 
-**Agent instruction files** — `AGENTS.md`, `CLAUDE.md` or equivalent — must not exceed **12 KB** each, measured with `wc -c`.
+**Agent instruction files** — `AGENTS.md`, `CLAUDE.md` or equivalent — must not exceed **10 KB** each, measured with `wc -c`.
 
 **They are a decision and action register, not an archive.** Record the minimum strictly necessary to act: which decisions are already made, which actions must be performed, and the mechanical commands that enforce them. **Lead with the imperative** — what to do, what not to do, what to re-derive — rather than the reasoning behind it. Detail, measurements and rationale belong in the specification that earned them and must not be duplicated here; a fact recorded in both will go stale in one of them. Prefer one-line rules over paragraphs, and a pointer over a restatement.
 
