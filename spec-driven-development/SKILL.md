@@ -33,6 +33,22 @@ This skill enforces Spec-Driven Development by compelling the agent to write, up
 
 **When over the cap**, move the content into the owning specification (or the one being written) and leave a pointer, then cut in this order: worked rationale, history, restated specification content, and any background a reader can obtain by running a command.
 
+**It is also the reload target after a session compression.** Section 0.3 makes the context a cache; `AGENTS.md` is where the working state is rebuilt from once a compression pass has run. Write it at GATE 1 (section 5) and keep it inside the 10 KB cap — a register that overflows cannot be reloaded, which defeats the compression it exists to serve.
+
+### 0.3 Session Context Budget
+
+**Baseline.** `B` is the size of the session context when work begins, recorded once, in bytes. Prefer the occupancy the harness reports. Failing that, accumulate the agent's own output and tool results into a scratch file outside the repository and measure it with `wc -c`. **When neither source can state it, `B` is 1 KB.** Record `B` and its source in `spec.md`; never re-derive it.
+
+**Increment.** One loop is one author prompt followed by the agent's thinking and generation. `Δ = max(0.20 × B, 4,000 tokens)` (4,000 tokens ≈ 16 KB). A loop may retain at most `Δ` of new content.
+
+**Growth is linear, never compounding.** The ceiling after `n` loops is `B + n·Δ`. An increment is measured against `B`, never against the total reached so far; `B·1.2ⁿ` is not the rule.
+
+**Compress after every two loops**, before the next author prompt: distil the pair to its decisions, open questions and identifiers, and drop what is already written to disk. A pair may retain up to `2·Δ` before the pass runs, so the linear ceiling `B + n·Δ` still holds.
+
+**At GATE 1 (section 5), compress the whole session to `max(B, Δ)`, write `AGENTS.md`, then continue as the author directs.**
+
+**Durable state lives on disk, never in context.** `spec.md`, `plan.md` and `AGENTS.md` are the memory; context is a cache rebuilt from them. A fact needed after a compression that is not in a file is a defect.
+
 ## 1. Mandatory Pre-Flight Phase (No-Code Gate)
 
 Before writing, refactoring, or deleting any production code, you **must** pause and execute the following ritual:
@@ -41,7 +57,7 @@ Before writing, refactoring, or deleting any production code, you **must** pause
 
 - **Read Project Instructions First:** Locate and read the agent instruction files the project ships (`AGENTS.md`, `CLAUDE.md`, or equivalent) and every document they mandate, before anything else. Those orders are project-specific and can contradict what a model would otherwise assume from training data. In `psf-user-web`, `AGENTS.md` requires reading the Next.js guides in `node_modules/next/dist/docs/` first, and states that the installed version breaks from published conventions.
 - **Check for Specification:** Inspect the `specs/` directory to see if a relevant `spec.md` or feature folder exists.
-- **Halt and Plan First:** You are strictly forbidden from editing application logic until an explicit execution plan is formally written down and saved to disk locally.
+- **Halt and Plan First:** You are strictly forbidden from editing application logic until an explicit execution plan is formally written down and saved to disk locally **and the author has passed GATE 2 (section 5).** A written plan is not permission to write code.
 
 **When the session cannot write.** If the session cannot write to disk, because it is in plan mode, on a read-only mount, or the user asked for a dry run, do not treat the missing files as a failure and do not skip the ritual. Write the complete `spec.md` and `plan.md` content in the response, state plainly that nothing was saved to disk, and write the files as the first action once editing is permitted.
 
@@ -170,8 +186,28 @@ Each step must name the spec.md identifiers it delivers (R#, EC#, AC#).
 - **Risk:** [e.g., Database migration locking table X] -> **Mitigation:** [e.g., Use concurrent index creation]
 ```
 
-## 5. Interactive State Tracking Workflow
+## 5. Author-Gated Lifecycle
+
+Work advances through these phases. Every gate stops the agent: present the artifact, ask, wait. **Silence is not approval, and a ticked `plan.md` checkbox is not approval.** Do not read ahead past a gate, and do not write production code before GATE 2.
+
+| Phase | Action | Ends at |
+|---|---|---|
+| P1 | Reconnaissance; read the project's own instructions first | — |
+| P2 | Draft and refine the specification; may span many turns | GATE 1 |
+| P3 | Finalize the plan against the approved specification | GATE 2 |
+| P4 | Implement, ticking checkboxes on disk | — |
+| P5 | Test and verify | GATE 3 |
+| P6 | Merge or advance, only as the author directs | — |
+
+**GATE 1 — specification approved.** On the author's word, compress per section 0.3, write `AGENTS.md`, and continue as directed.
+**GATE 2 — go-ahead for implementation.** Required before any production code is written, even with a complete plan.
+**GATE 3 — implementation approved.** Required before merging, releasing or advancing a branch.
+
+An unanswered gate is a stop, not an assumption. When work is gated on the author's word, ask again.
+
+## 6. Interactive State Tracking Workflow
 
 1. **Drafting:** Write the `spec.md` and `plan.md` to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/`.
-2. **Approval Request:** Present the path of the saved local file to the user: *"I have saved the execution plan to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`. Please review and approve."*
+2. **Approval Request:** Present the path of the saved local file to the user: *"I have saved the execution plan to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`. Please review and approve."* Then stop at the applicable gate (section 5).
 3. **Execution Verification:** As you make progress through your tasks, you **must** update the checkboxes (`[ ]` to `[x]`) in the local `plan.md` file after completing each milestone. Do not keep the state solely in your context window. When the session cannot write to disk, track progress in the response instead and reconcile the checkboxes in one pass as soon as editing is permitted.
+4. **Compression:** After every two loops, compress before the next author prompt (section 0.3).
