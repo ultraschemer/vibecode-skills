@@ -35,4 +35,3 @@ Excessive information and context lead to unnecessary token spending and all the
 
 **Durable state lives on disk, never in context.** `spec.md`, `plan.md` and `AGENTS.md` are the memory; context is a cache rebuilt from them. A fact needed after a compression that is not in a file is a defect.
 
-
