@@ -1,6 +1,6 @@
 ---
 name: context-budget
-description: Use on any potentially complex project, which can lead to expansive specification and documentation.
+description: Use in any project to keep the session context within budget: cap the agent instruction file, record the baseline in context-spec.md, and compress periodically.
 license: MIT
 metadata:
   audience: maintainers
