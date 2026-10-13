@@ -1,5 +1,5 @@
 ---
-name: spec-driven-development
+name: context-budget
 description: Use on any potentially complex project, which can lead to expansive specification and documentation.
 license: MIT
 metadata:
@@ -19,7 +19,7 @@ Excessive information and context lead to unnecessary token spending and all the
 
 **When over the cap**, move the content into the owning specification (or the one being written) and leave a pointer, then cut in this order: worked rationale, history, restated specification content, and any background a reader can obtain by running a command.
 
-**It is also the reload target after a session compression.** Section 0.3 makes the context a cache; `AGENTS.md` is where the working state is rebuilt from once a compression pass has run. Write it at GATE 1 (section 5) and keep it inside the 10 KB cap — a register that overflows cannot be reloaded, which defeats the compression it exists to serve.
+**It is also the reload target after a session compression.** The context is treated as a cache; `AGENTS.md` is where the working state is rebuilt from once a compression pass has run. Write it when the specification is approved and keep it inside the 10 KB cap — a register that overflows cannot be reloaded, which defeats the compression it exists to serve.
 
 # 2 Session Context Budget
 
@@ -31,7 +31,7 @@ Excessive information and context lead to unnecessary token spending and all the
 
 **Compress after every two loops**, before the next author prompt: distil the pair to its decisions, open questions and identifiers, and drop what is already written to disk. A pair may retain up to `2·Δ` before the pass runs, so the linear ceiling `B + n·Δ` still holds.
 
-**At GATE 1 (section 5), compress the whole session to `max(B, Δ)`, write `AGENTS.md`, then continue as the author directs.**
+**When the specification is approved, compress the whole session to `max(B, Δ)`, write `AGENTS.md`, then continue as the author directs.**
 
 **Durable state lives on disk, never in context.** `spec.md`, `plan.md` and `AGENTS.md` are the memory; context is a cache rebuilt from them. A fact needed after a compression that is not in a file is a defect.
 

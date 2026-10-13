@@ -175,7 +175,7 @@ Work advances through these phases. Every gate stops the agent: present the arti
 | P5 | Test and verify | GATE 3 |
 | P6 | Merge or advance, only as the author directs | — |
 
-**GATE 1 — specification approved.** On the author's word, compress per section 0.3, write `AGENTS.md`, and continue as directed.
+**GATE 1 — specification approved.** On the author's word, proceed to finalize the plan against the approved specification.
 **GATE 2 — go-ahead for implementation.** Required before any production code is written, even with a complete plan.
 **GATE 3 — implementation approved.** Required before merging, releasing or advancing a branch.
 
@@ -186,4 +186,3 @@ An unanswered gate is a stop, not an assumption. When work is gated on the autho
 1. **Drafting:** Write the `spec.md` and `plan.md` to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/`.
 2. **Approval Request:** Present the path of the saved local file to the user: *"I have saved the execution plan to `<project-root>/specs/[NNNNNN]-[kebab-case-name]/plan.md`. Please review and approve."* Then stop at the applicable gate (section 5).
 3. **Execution Verification:** As you make progress through your tasks, you **must** update the checkboxes (`[ ]` to `[x]`) in the local `plan.md` file after completing each milestone. Do not keep the state solely in your context window. When the session cannot write to disk, track progress in the response instead and reconcile the checkboxes in one pass as soon as editing is permitted.
-4. **Compression:** After every two loops, compress before the next author prompt (section 0.3).
