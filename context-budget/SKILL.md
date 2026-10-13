@@ -23,7 +23,7 @@ Excessive information and context lead to unnecessary token spending and all the
 
 # 2 Session Context Budget
 
-**Baseline.** `B` is the size of the session context when work begins, recorded once, in bytes. Prefer the occupancy the harness reports. Failing that, accumulate the agent's own output and tool results into a scratch file outside the repository and measure it with `wc -c`. **When neither source can state it, `B` is 1 KB.** Record `B` and its source in `spec.md`; never re-derive it.
+**Baseline.** `B` is the size of the session context when work begins, recorded once, in bytes. Prefer the occupancy the harness reports. Failing that, accumulate the agent's own output and tool results into a scratch file outside the repository and measure it with `wc -c`. **When neither source can state it, `B` is 1 KB.** Record `B` and its source in `spec.md`, at workspace root directory; never re-derive it.
 
 **Increment.** One loop is one author prompt followed by the agent's thinking and generation. `Δ = max(0.20 × B, 4,000 tokens)` (4,000 tokens ≈ 16 KB). A loop may retain at most `Δ` of new content.
 
